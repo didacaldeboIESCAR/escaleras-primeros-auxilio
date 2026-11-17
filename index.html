@@ -61,11 +61,19 @@
 
   <div class="side">
     <div class="card" id="joinCard">
-      <h2>Entrar en la partida</h2>
+      <h2 id="joinTitle">Crear una partida</h2>
       <div class="row"><input id="name" placeholder="Tu nombre" maxlength="16"></div>
-      <div class="row"><input id="room" placeholder="Código de sala (p. ej. AULA1)" maxlength="12"></div>
-      <div class="row"><button id="joinBtn">Unirse</button><button class="ghost" id="watchBtn">Solo mirar</button></div>
+      <input id="room" type="hidden">
+      <div class="row" id="createRow"><button id="createBtn">Crear partida y obtener enlace</button></div>
+      <div class="row hidden" id="inviteRow"><button id="joinBtn">Unirse a la partida</button><button class="ghost" id="watchBtn">Solo mirar</button></div>
       <div id="joinErr" style="color:var(--bad);font-size:13px"></div>
+    </div>
+
+    <div class="card hidden" id="shareCard">
+      <h2>🔗 Enlace para invitar</h2>
+      <div style="font-size:13px;color:var(--muted)">Envía este enlace a los jugadores (WhatsApp, Classroom, proyector…):</div>
+      <div class="row"><input id="shareLink" readonly onclick="this.select()"></div>
+      <div class="row"><button id="copyBtn">Copiar enlace</button><button class="ghost" id="shareBtn">Compartir</button></div>
     </div>
 
     <div class="card hidden" id="gameCard">
@@ -118,8 +126,35 @@ const DICE = ['⚀','⚁','⚂','⚃','⚄','⚅'];
 let S = null, me = { token: null, id: null, room: null }, es = null, skew = 0, shownEventT = 0, feedbackUntil = 0;
 
 const params = new URLSearchParams(location.search);
-$('room').value = params.get('room') || localStorage.getItem('ss_room') || 'AULA';
+const invited = (params.get('sala') || params.get('room') || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
 $('name').value = localStorage.getItem('ss_name') || '';
+if (invited) {
+  $('room').value = invited;
+  $('joinTitle').textContent = `Te han invitado a la partida ${invited}`;
+  $('createRow').classList.add('hidden'); $('inviteRow').classList.remove('hidden');
+  // Si ya estabas en esta sala (recarga de página), vuelve a entrar solo
+  const saved = JSON.parse(localStorage.getItem('ss_tok_' + invited) || 'null');
+  if (saved && saved.token) setTimeout(() => $('joinBtn').click(), 0);
+}
+const linkFor = code => `${location.origin}${location.pathname}?sala=${code}`;
+function showShare(code) {
+  $('shareLink').value = linkFor(code);
+  $('shareCard').classList.remove('hidden');
+  history.replaceState(null, '', '?sala=' + code);
+}
+$('copyBtn').onclick = async () => {
+  try { await navigator.clipboard.writeText($('shareLink').value); } catch { $('shareLink').select(); document.execCommand('copy'); }
+  $('copyBtn').textContent = '¡Copiado!'; setTimeout(() => $('copyBtn').textContent = 'Copiar enlace', 1500);
+};
+$('shareBtn').onclick = () => navigator.share
+  ? navigator.share({ title: 'Escaleras y Serpientes · First Aid', text: '¡Únete a mi partida!', url: $('shareLink').value }).catch(() => {})
+  : $('copyBtn').click();
+$('createBtn').onclick = () => {
+  if (!$('name').value.trim()) { $('joinErr').textContent = 'Escribe tu nombre'; return; }
+  const abc = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  $('room').value = Array.from({ length: 5 }, () => abc[Math.floor(Math.random() * abc.length)]).join('');
+  $('joinBtn').click();
+};
 
 async function api(action, body = {}) {
   const r = await fetch('/api/' + action, { method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -143,11 +178,11 @@ $('joinBtn').onclick = async () => {
     const j = await api('join', { name: $('name').value, token: saved && saved.token });
     me = { token: j.token, id: j.id, room: j.room };
     localStorage.setItem('ss_tok_' + j.room, JSON.stringify(me));
-    localStorage.setItem('ss_name', $('name').value); localStorage.setItem('ss_room', j.room);
-    connect();
+    localStorage.setItem('ss_name', $('name').value);
+    connect(); showShare(j.room);
   } catch (e) { $('joinErr').textContent = e.message; }
 };
-$('watchBtn').onclick = () => { me = { token: null, id: null, room: ($('room').value.trim() || 'AULA').toUpperCase() }; connect(); };
+$('watchBtn').onclick = () => { me = { token: null, id: null, room: $('room').value }; connect(); showShare(me.room); };
 $('startBtn').onclick = () => api('start', { questionTime: $('qtime').value }).catch(e => alert(e.message));
 $('rollBtn').onclick = () => { $('rollBtn').disabled = true; api('roll').catch(e => alert(e.message)); };
 $('skipBtn').onclick = () => api('skip').catch(e => alert(e.message));
