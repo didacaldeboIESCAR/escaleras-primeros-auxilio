@@ -1,0 +1,650 @@
+[
+ {
+  "id": 1,
+  "text": "How do you say \"survival blanket\" in Catalan?",
+  "options": [
+   "pinces",
+   "rampa",
+   "manta tèrmica",
+   "blau"
+  ],
+  "answer": 2,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"survival blanket\" = \"manta tèrmica\"."
+ },
+ {
+  "id": 2,
+  "text": "What is the English word for \"manta tèrmica\"?",
+  "options": [
+   "survival blanket",
+   "sticking plaster",
+   "heatstroke",
+   "internal bleeding"
+  ],
+  "answer": 0,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"survival blanket\" = \"manta tèrmica\"."
+ },
+ {
+  "id": 3,
+  "text": "How do you say \"ointment\" in Catalan?",
+  "options": [
+   "pomada",
+   "tiretes",
+   "imperdibles",
+   "esquinç / esquinçar"
+  ],
+  "answer": 0,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"ointment\" = \"pomada\"."
+ },
+ {
+  "id": 4,
+  "text": "What is the English word for \"pomada\"?",
+  "options": [
+   "ointment",
+   "sticking plaster",
+   "gauze",
+   "internal bleeding"
+  ],
+  "answer": 0,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"ointment\" = \"pomada\"."
+ },
+ {
+  "id": 5,
+  "text": "How do you say \"sticking plaster\" in Catalan?",
+  "options": [
+   "esparadrap",
+   "pomada",
+   "hemorràgia interna",
+   "rampa"
+  ],
+  "answer": 0,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"sticking plaster\" = \"esparadrap\"."
+ },
+ {
+  "id": 6,
+  "text": "What is the English word for \"esparadrap\"?",
+  "options": [
+   "sticking plaster",
+   "sprain",
+   "tweezers",
+   "fever"
+  ],
+  "answer": 0,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"sticking plaster\" = \"esparadrap\"."
+ },
+ {
+  "id": 7,
+  "text": "How do you say \"plaster\" in Catalan?",
+  "options": [
+   "torçar",
+   "tiretes",
+   "tovalloletes",
+   "polse"
+  ],
+  "answer": 1,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"plaster\" = \"tiretes\"."
+ },
+ {
+  "id": 8,
+  "text": "What is the English word for \"tiretes\"?",
+  "options": [
+   "gauze",
+   "plaster",
+   "pulse",
+   "heatstroke"
+  ],
+  "answer": 1,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"plaster\" = \"tiretes\"."
+ },
+ {
+  "id": 9,
+  "text": "How do you say \"gauze\" in Catalan?",
+  "options": [
+   "butllofa",
+   "vomitar",
+   "fèrula",
+   "gasa"
+  ],
+  "answer": 3,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"gauze\" = \"gasa\"."
+ },
+ {
+  "id": 10,
+  "text": "What is the English word for \"gasa\"?",
+  "options": [
+   "dehydration",
+   "gauze",
+   "internal bleeding",
+   "heatstroke"
+  ],
+  "answer": 1,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"gauze\" = \"gasa\"."
+ },
+ {
+  "id": 11,
+  "text": "How do you say \"tweezers\" in Catalan?",
+  "options": [
+   "pinces",
+   "ferida",
+   "imperdibles",
+   "malaltia"
+  ],
+  "answer": 0,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"tweezers\" = \"pinces\"."
+ },
+ {
+  "id": 12,
+  "text": "What is the English word for \"pinces\"?",
+  "options": [
+   "bruise",
+   "pain",
+   "throw up",
+   "tweezers"
+  ],
+  "answer": 3,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"tweezers\" = \"pinces\"."
+ },
+ {
+  "id": 13,
+  "text": "How do you say \"wipes\" in Catalan?",
+  "options": [
+   "esquinç / esquinçar",
+   "tiretes",
+   "tovalloletes",
+   "dolor"
+  ],
+  "answer": 2,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"wipes\" = \"tovalloletes\"."
+ },
+ {
+  "id": 14,
+  "text": "What is the English word for \"tovalloletes\"?",
+  "options": [
+   "wipes",
+   "sprain",
+   "ointment",
+   "throw up"
+  ],
+  "answer": 0,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"wipes\" = \"tovalloletes\"."
+ },
+ {
+  "id": 15,
+  "text": "How do you say \"splint\" in Catalan?",
+  "options": [
+   "blau",
+   "malaltia",
+   "cop de calor",
+   "fèrula"
+  ],
+  "answer": 3,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"splint\" = \"fèrula\"."
+ },
+ {
+  "id": 16,
+  "text": "What is the English word for \"fèrula\"?",
+  "options": [
+   "throw up",
+   "feel sick",
+   "splint",
+   "sticking plaster"
+  ],
+  "answer": 2,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"splint\" = \"fèrula\"."
+ },
+ {
+  "id": 17,
+  "text": "How do you say \"safety pins\" in Catalan?",
+  "options": [
+   "víctima",
+   "torçar",
+   "hemorràgia interna",
+   "imperdibles"
+  ],
+  "answer": 3,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"safety pins\" = \"imperdibles\"."
+ },
+ {
+  "id": 18,
+  "text": "What is the English word for \"imperdibles\"?",
+  "options": [
+   "survival blanket",
+   "twist",
+   "heatstroke",
+   "safety pins"
+  ],
+  "answer": 3,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"safety pins\" = \"imperdibles\"."
+ },
+ {
+  "id": 19,
+  "text": "How do you say \"feel sick\" in Catalan?",
+  "options": [
+   "vomitar",
+   "tiretes",
+   "trobar-se malament",
+   "butllofa"
+  ],
+  "answer": 2,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"feel sick\" = \"trobar-se malament\"."
+ },
+ {
+  "id": 20,
+  "text": "What is the English word for \"trobar-se malament\"?",
+  "options": [
+   "gauze",
+   "splint",
+   "injury",
+   "feel sick"
+  ],
+  "answer": 3,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"feel sick\" = \"trobar-se malament\"."
+ },
+ {
+  "id": 21,
+  "text": "How do you say \"fever\" in Catalan?",
+  "options": [
+   "esparadrap",
+   "pinces",
+   "deshidratació",
+   "febre"
+  ],
+  "answer": 3,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"fever\" = \"febre\"."
+ },
+ {
+  "id": 22,
+  "text": "What is the English word for \"febre\"?",
+  "options": [
+   "gauze",
+   "sprain",
+   "fever",
+   "pulse"
+  ],
+  "answer": 2,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"fever\" = \"febre\"."
+ },
+ {
+  "id": 23,
+  "text": "How do you say \"bruise\" in Catalan?",
+  "options": [
+   "blau",
+   "rampa",
+   "cop de calor",
+   "torçar"
+  ],
+  "answer": 0,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"bruise\" = \"blau\"."
+ },
+ {
+  "id": 24,
+  "text": "What is the English word for \"blau\"?",
+  "options": [
+   "splint",
+   "bruise",
+   "tweezers",
+   "gauze"
+  ],
+  "answer": 1,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"bruise\" = \"blau\"."
+ },
+ {
+  "id": 25,
+  "text": "How do you say \"heatstroke\" in Catalan?",
+  "options": [
+   "pinces",
+   "cop de calor",
+   "hemorràgia interna",
+   "imperdibles"
+  ],
+  "answer": 1,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"heatstroke\" = \"cop de calor\"."
+ },
+ {
+  "id": 26,
+  "text": "What is the English word for \"cop de calor\"?",
+  "options": [
+   "pulse",
+   "heatstroke",
+   "sprain",
+   "bruise"
+  ],
+  "answer": 1,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"heatstroke\" = \"cop de calor\"."
+ },
+ {
+  "id": 27,
+  "text": "How do you say \"cramp\" in Catalan?",
+  "options": [
+   "deshidratació",
+   "torçar",
+   "ferida",
+   "rampa"
+  ],
+  "answer": 3,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"cramp\" = \"rampa\"."
+ },
+ {
+  "id": 28,
+  "text": "What is the English word for \"rampa\"?",
+  "options": [
+   "plaster",
+   "throw up",
+   "heatstroke",
+   "cramp"
+  ],
+  "answer": 3,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"cramp\" = \"rampa\"."
+ },
+ {
+  "id": 29,
+  "text": "How do you say \"sprain\" in Catalan?",
+  "options": [
+   "deshidratació",
+   "esquinç / esquinçar",
+   "esparadrap",
+   "tovalloletes"
+  ],
+  "answer": 1,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"sprain\" = \"esquinç / esquinçar\"."
+ },
+ {
+  "id": 30,
+  "text": "What is the English word for \"esquinç / esquinçar\"?",
+  "options": [
+   "ointment",
+   "sprain",
+   "plaster",
+   "blister"
+  ],
+  "answer": 1,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"sprain\" = \"esquinç / esquinçar\"."
+ },
+ {
+  "id": 31,
+  "text": "How do you say \"dehydration\" in Catalan?",
+  "options": [
+   "tiretes",
+   "blau",
+   "deshidratació",
+   "polse"
+  ],
+  "answer": 2,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"dehydration\" = \"deshidratació\"."
+ },
+ {
+  "id": 32,
+  "text": "What is the English word for \"deshidratació\"?",
+  "options": [
+   "blister",
+   "dehydration",
+   "heatstroke",
+   "gauze"
+  ],
+  "answer": 1,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"dehydration\" = \"deshidratació\"."
+ },
+ {
+  "id": 33,
+  "text": "How do you say \"throw up\" in Catalan?",
+  "options": [
+   "deshidratació",
+   "esquinç / esquinçar",
+   "tiretes",
+   "vomitar"
+  ],
+  "answer": 3,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"throw up\" = \"vomitar\"."
+ },
+ {
+  "id": 34,
+  "text": "What is the English word for \"vomitar\"?",
+  "options": [
+   "sticking plaster",
+   "gauze",
+   "throw up",
+   "plaster"
+  ],
+  "answer": 2,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"throw up\" = \"vomitar\"."
+ },
+ {
+  "id": 35,
+  "text": "How do you say \"pain\" in Catalan?",
+  "options": [
+   "pinces",
+   "malaltia",
+   "dolor",
+   "deshidratació"
+  ],
+  "answer": 2,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"pain\" = \"dolor\"."
+ },
+ {
+  "id": 36,
+  "text": "What is the English word for \"dolor\"?",
+  "options": [
+   "pain",
+   "illness",
+   "pulse",
+   "gauze"
+  ],
+  "answer": 0,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"pain\" = \"dolor\"."
+ },
+ {
+  "id": 37,
+  "text": "How do you say \"pulse\" in Catalan?",
+  "options": [
+   "víctima",
+   "esparadrap",
+   "polse",
+   "malaltia"
+  ],
+  "answer": 2,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"pulse\" = \"polse\"."
+ },
+ {
+  "id": 38,
+  "text": "What is the English word for \"polse\"?",
+  "options": [
+   "tweezers",
+   "pulse",
+   "wound",
+   "bruise"
+  ],
+  "answer": 1,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"pulse\" = \"polse\"."
+ },
+ {
+  "id": 39,
+  "text": "How do you say \"internal bleeding\" in Catalan?",
+  "options": [
+   "butllofa",
+   "hemorràgia interna",
+   "víctima",
+   "fèrula"
+  ],
+  "answer": 1,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"internal bleeding\" = \"hemorràgia interna\"."
+ },
+ {
+  "id": 40,
+  "text": "What is the English word for \"hemorràgia interna\"?",
+  "options": [
+   "injury",
+   "internal bleeding",
+   "splint",
+   "foreign body"
+  ],
+  "answer": 1,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"internal bleeding\" = \"hemorràgia interna\"."
+ },
+ {
+  "id": 41,
+  "text": "How do you say \"blister\" in Catalan?",
+  "options": [
+   "butllofa",
+   "manta tèrmica",
+   "lesió",
+   "blau"
+  ],
+  "answer": 0,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"blister\" = \"butllofa\"."
+ },
+ {
+  "id": 42,
+  "text": "What is the English word for \"butllofa\"?",
+  "options": [
+   "safety pins",
+   "blister",
+   "wipes",
+   "illness"
+  ],
+  "answer": 1,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"blister\" = \"butllofa\"."
+ },
+ {
+  "id": 43,
+  "text": "How do you say \"casualty\" in Catalan?",
+  "options": [
+   "fèrula",
+   "esparadrap",
+   "víctima",
+   "blau"
+  ],
+  "answer": 2,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"casualty\" = \"víctima\"."
+ },
+ {
+  "id": 44,
+  "text": "What is the English word for \"víctima\"?",
+  "options": [
+   "casualty",
+   "dehydration",
+   "fever",
+   "wipes"
+  ],
+  "answer": 0,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"casualty\" = \"víctima\"."
+ },
+ {
+  "id": 45,
+  "text": "How do you say \"twist\" in Catalan?",
+  "options": [
+   "esparadrap",
+   "torçar",
+   "butllofa",
+   "cos estrany"
+  ],
+  "answer": 1,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"twist\" = \"torçar\"."
+ },
+ {
+  "id": 46,
+  "text": "What is the English word for \"torçar\"?",
+  "options": [
+   "twist",
+   "tweezers",
+   "dehydration",
+   "cramp"
+  ],
+  "answer": 0,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"twist\" = \"torçar\"."
+ },
+ {
+  "id": 47,
+  "text": "How do you say \"illness\" in Catalan?",
+  "options": [
+   "cop de calor",
+   "malaltia",
+   "lesió",
+   "esquinç / esquinçar"
+  ],
+  "answer": 1,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"illness\" = \"malaltia\"."
+ },
+ {
+  "id": 48,
+  "text": "What is the English word for \"malaltia\"?",
+  "options": [
+   "tweezers",
+   "illness",
+   "survival blanket",
+   "gauze"
+  ],
+  "answer": 1,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"illness\" = \"malaltia\"."
+ },
+ {
+  "id": 49,
+  "text": "How do you say \"injury\" in Catalan?",
+  "options": [
+   "cos estrany",
+   "butllofa",
+   "gasa",
+   "lesió"
+  ],
+  "answer": 3,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"injury\" = \"lesió\"."
+ },
+ {
+  "id": 50,
+  "text": "What is the English word for \"lesió\"?",
+  "options": [
+   "pain",
+   "injury",
+   "survival blanket",
+   "gauze"
+  ],
+  "answer": 1,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"injury\" = \"lesió\"."
+ },
+ {
+  "id": 51,
+  "text": "How do you say \"wound\" in Catalan?",
+  "options": [
+   "malaltia",
+   "gasa",
+   "vomitar",
+   "ferida"
+  ],
+  "answer": 3,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"wound\" = \"ferida\"."
+ },
+ {
+  "id": 52,
+  "text": "What is the English word for \"ferida\"?",
+  "options": [
+   "safety pins",
+   "survival blanket",
+   "wound",
+   "wipes"
+  ],
+  "answer": 2,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"wound\" = \"ferida\"."
+ },
+ {
+  "id": 53,
+  "text": "How do you say \"foreign body\" in Catalan?",
+  "options": [
+   "lesió",
+   "polse",
+   "cos estrany",
+   "febre"
+  ],
+  "answer": 2,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"foreign body\" = \"cos estrany\"."
+ },
+ {
+  "id": 54,
+  "text": "What is the English word for \"cos estrany\"?",
+  "options": [
+   "gauze",
+   "foreign body",
+   "ointment",
+   "illness"
+  ],
+  "answer": 1,
+  "explanation": "Según los apuntes (Vocabulary Unit 2: First Aid and Injuries): \"foreign body\" = \"cos estrany\"."
+ }
+]
