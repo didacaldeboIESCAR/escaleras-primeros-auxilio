@@ -3,93 +3,115 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 <title>Profe · Escaleras y Serpientes · First Aid</title>
 <style>
-  :root { --bg:#46178f; --ink:#1d1d1d; --ok:#26890c; --bad:#e21b3c; --a:#e21b3c; --b:#1368ce; --c:#d89e00; --d:#26890c; }
+  :root { --cream:#fff7ec; --ink:#14273e; --red:#e63946; --mint:#2a9d8f; --mintl:#d8f3ee; --sun:#f4a261; --sky:#457b9d; --coral:#ffd9d2; }
   * { box-sizing:border-box; }
   html, body { margin:0; height:100%; }
-  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background:var(--bg); color:#fff; overflow:hidden; }
-  .bgshape { position:fixed; z-index:-1; opacity:.12; border-radius:20%; animation: float 14s ease-in-out infinite; background:#fff; }
-  @keyframes float { 50% { transform: translateY(-40px) rotate(25deg); } }
-  @keyframes pop { 0% { transform:scale(0); } 70% { transform:scale(1.15); } 100% { transform:scale(1); } }
-  @keyframes shake { 0%,100% { transform:rotate(0) } 20% { transform:rotate(-25deg) scale(1.2) } 40% { transform:rotate(20deg) } 60% { transform:rotate(-15deg) scale(1.1) } 80% { transform:rotate(10deg) } }
-  @keyframes pulse { 50% { transform:scale(1.06); } }
-  @keyframes slidein { from { transform:translateY(30px); opacity:0; } to { transform:none; opacity:1; } }
-  #tokens g.tok { transition: transform .9s cubic-bezier(.45,1.5,.5,1); }
-  #tokens g.tok.turn circle { animation: pulse 1s infinite; transform-origin:center; transform-box:fill-box; }
-  #confetti { position:fixed; inset:0; pointer-events:none; z-index:50; }
-  button { font:inherit; border:0; border-radius:8px; cursor:pointer; font-weight:800; }
-  .btn { background:#fff; color:#333; padding:12px 22px; font-size:20px; box-shadow:0 4px 0 rgba(0,0,0,.25); }
-  .btn:active { transform:translateY(2px); box-shadow:0 2px 0 rgba(0,0,0,.25); }
-  .btn.dark { background:#2b2b2b; color:#fff; }
-  .btn.small { font-size:14px; padding:8px 12px; }
-  .btn:disabled { opacity:.5; cursor:not-allowed; }
+  body { font-family:'Fredoka', ui-rounded, "Segoe UI", system-ui, sans-serif; background:var(--cream) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cpath d='M24 18h8v6h6v8h-6v6h-8v-6h-6v-8h6z' fill='%23e63946' fill-opacity='.06'/%3E%3C/svg%3E"); color:var(--ink); overflow:hidden; }
+  @keyframes pop { 0% { transform:scale(0) rotate(-8deg); } 70% { transform:scale(1.1) rotate(2deg); } 100% { transform:scale(1) rotate(var(--rot,0deg)); } }
+  @keyframes beat { 0%,40%,100% { transform:scale(1); } 20% { transform:scale(1.25); } 30% { transform:scale(.95); } }
+  @keyframes roll { 0% { transform:rotate(0) } 100% { transform:rotate(720deg) } }
+  @keyframes rise { from { transform:translateY(24px); opacity:0; } to { transform:none; opacity:1; } }
+  @keyframes ecg { from { background-position:0 0; } to { background-position:-240px 0; } }
+  @keyframes wobble { 50% { transform:translateY(-6px) rotate(var(--rot,0deg)); } }
+  button { font:inherit; border:0; cursor:pointer; }
+  .btn { background:var(--red); color:#fff; padding:14px 28px; font-size:22px; font-weight:700; border-radius:999px; box-shadow:0 6px 18px rgba(230,57,70,.35); transition:transform .15s; }
+  .btn:hover { transform:translateY(-2px); }
+  .btn.ghost { background:#fff; color:var(--ink); box-shadow:0 2px 8px rgba(20,39,62,.12); }
+  .btn.small { font-size:15px; padding:9px 16px; }
+  .btn:disabled { opacity:.45; cursor:not-allowed; transform:none; }
   .screen { display:none; height:100%; }
   .screen.on { display:flex; }
   .hidden { display:none !important; }
+  .logo { display:flex; align-items:center; gap:14px; }
+  .cross { width:56px; height:56px; background:var(--red); border-radius:14px; position:relative; flex:none; box-shadow:0 6px 16px rgba(230,57,70,.35); }
+  .cross::before, .cross::after { content:''; position:absolute; background:#fff; border-radius:3px; }
+  .cross::before { left:23px; top:11px; width:10px; height:34px; } .cross::after { left:11px; top:23px; width:34px; height:10px; }
 
   /* Crear */
-  #s-create { flex-direction:column; align-items:center; justify-content:center; gap:22px; text-align:center; }
-  #s-create h1 { font-size:54px; margin:0; } #s-create p { font-size:20px; opacity:.9; margin:0; }
-  .timebox { background:#fff; color:#333; border-radius:10px; padding:14px 18px; font-size:18px; font-weight:700; display:flex; gap:10px; align-items:center; }
-  .timebox input { width:80px; font-size:22px; padding:6px; border:2px solid #ccc; border-radius:6px; text-align:center; }
+  #s-create { flex-direction:column; align-items:center; justify-content:center; gap:24px; text-align:center; }
+  #s-create h1 { font-size:58px; margin:0; font-weight:700; line-height:1; }
+  #s-create p { font-size:22px; color:var(--mint); margin:0; font-weight:600; }
+  .timebox { background:#fff; border-radius:20px; padding:16px 22px; font-size:20px; font-weight:600; display:flex; gap:12px; align-items:center; box-shadow:0 4px 14px rgba(20,39,62,.08); }
+  .timebox input { width:90px; font:inherit; font-size:24px; padding:6px; border:2px solid var(--mintl); border-radius:12px; text-align:center; color:var(--ink); }
 
   /* Sala de espera */
-  #s-lobby { flex-direction:column; align-items:center; padding:24px; gap:18px; }
-  .pin { background:#fff; color:#333; border-radius:12px; padding:14px 26px; display:flex; gap:28px; align-items:center; }
-  .pin .lbl { font-size:22px; font-weight:700; }
-  .pin .url { font-size:26px; font-weight:800; }
-  .pin .code { font-size:84px; font-weight:900; letter-spacing:6px; line-height:1; }
-  .pin img { width:150px; height:150px; }
-  .lobbybar { display:flex; align-items:center; gap:16px; width:100%; max-width:1100px; }
-  .count { background:rgba(0,0,0,.3); padding:10px 18px; border-radius:8px; font-size:22px; font-weight:800; }
-  .chips { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; max-width:1100px; }
-  .chip { animation: pop .4s ease-out; padding:14px 24px; border-radius:10px; font-size:28px; font-weight:800; color:#fff; cursor:pointer; box-shadow:0 3px 0 rgba(0,0,0,.25); }
-  .chip:hover { text-decoration:line-through; }
-  .waiting { font-size:26px; opacity:.9; margin-top:30px; animation: pulse 2s infinite; }
+  #s-lobby { flex-direction:column; align-items:center; padding:28px; gap:22px; }
+  .pin { background:#fff; border-radius:24px; padding:18px 30px 18px 46px; display:flex; gap:30px; align-items:center; position:relative; box-shadow:0 10px 30px rgba(20,39,62,.12); border:3px dashed var(--mint); }
+  .pin::before { content:''; position:absolute; left:14px; top:50%; width:16px; height:16px; margin-top:-8px; border-radius:50%; background:var(--cream); box-shadow:inset 0 0 0 3px var(--mint); }
+  .pin .lbl { font-size:20px; font-weight:600; color:var(--mint); }
+  .pin .url { font-size:26px; font-weight:700; }
+  .pin .code { font-size:92px; font-weight:700; letter-spacing:10px; line-height:1; color:var(--red); }
+  .pin img { width:150px; height:150px; border-radius:12px; }
+  .lobbybar { display:flex; align-items:center; gap:16px; width:100%; max-width:1150px; }
+  .count { background:var(--ink); color:#fff; padding:10px 20px; border-radius:999px; font-size:22px; font-weight:600; }
+  .chips { display:flex; flex-wrap:wrap; gap:18px 22px; justify-content:center; max-width:1150px; }
+  /* Cada alumno es una tirita */
+  .chip { --rot:0deg; position:relative; padding:12px 44px; border-radius:999px; font-size:26px; font-weight:700; color:var(--ink); cursor:pointer;
+    background: radial-gradient(circle, rgba(0,0,0,.08) 1.5px, transparent 2px) 0 0/9px 9px, #f6cfa5; box-shadow:0 4px 10px rgba(0,0,0,.12);
+    animation: pop .45s ease-out, wobble 3s 1s ease-in-out infinite; transform:rotate(var(--rot)); }
+  .chip::after { content:''; position:absolute; left:28%; right:28%; top:6px; bottom:6px; background:#fff; border-radius:8px; opacity:.85; z-index:0; }
+  .chip span { position:relative; z-index:1; }
+  .chip i { position:absolute; left:12px; top:50%; width:16px; height:16px; margin-top:-8px; border-radius:50%; z-index:1; }
+  .chip:hover { filter:brightness(.92); }
+  .waiting { font-size:26px; color:var(--mint); margin-top:30px; font-weight:600; }
+  .waiting::before { content:'❤ '; color:var(--red); display:inline-block; animation:beat 1.2s infinite; }
 
   /* Juego */
-  #s-game { gap:16px; padding:16px; }
-  .boardwrap { position:relative; height:calc(100vh - 32px); aspect-ratio:1; flex:none; max-width:calc(100vw - 380px); }
-  svg#board { width:100%; height:100%; display:block; border-radius:12px; background:#fff; }
-  .side { flex:1; display:flex; flex-direction:column; gap:12px; min-width:300px; overflow:hidden; }
-  .panel { background:#fff; color:var(--ink); border-radius:12px; padding:14px; }
-  #turnBanner { font-size:26px; font-weight:900; display:flex; align-items:center; gap:12px; }
-  #turnBanner .sw { width:30px; height:30px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 0 2px #0003; flex:none; }
-  #dice { font-size:80px; line-height:1; display:inline-block; }
-  #dice.roll { animation: shake .8s ease-out; }
+  #s-game { gap:18px; padding:18px; }
+  .boardwrap { position:relative; height:calc(100vh - 36px); aspect-ratio:1; flex:none; max-width:calc(100vw - 390px); }
+  svg#board { width:100%; height:100%; display:block; border-radius:22px; background:#fff; box-shadow:0 10px 30px rgba(20,39,62,.15); }
+  #tokens g.tok { transition: transform .9s cubic-bezier(.45,1.5,.5,1); }
+  #tokens g.tok.turn circle { animation: beat 1.2s infinite; transform-origin:center; transform-box:fill-box; }
+  .side { flex:1; display:flex; flex-direction:column; gap:14px; min-width:300px; overflow:hidden; }
+  .panel { background:#fff; border-radius:20px; padding:16px; box-shadow:0 4px 14px rgba(20,39,62,.08); }
+  #turnBanner { font-size:26px; font-weight:700; display:flex; align-items:center; gap:12px; }
+  #turnBanner .sw { width:30px; height:30px; border-radius:50%; border:4px solid #fff; box-shadow:0 0 0 2px var(--ink); flex:none; }
+  #dice { width:84px; height:84px; border-radius:22px; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; font-size:48px; font-weight:700; box-shadow:0 6px 14px rgba(230,57,70,.35); flex:none; }
+  #dice.roll { animation: roll .7s ease-out; }
   #rank { list-style:none; margin:0; padding:0; max-height:34vh; overflow:auto; }
-  #rank li { display:flex; align-items:center; gap:10px; padding:6px 8px; border-radius:6px; font-size:18px; font-weight:700; }
-  #rank li.turn { background:#fff1b8; }
+  #rank li { display:flex; align-items:center; gap:10px; padding:7px 10px; border-radius:12px; font-size:18px; font-weight:600; }
+  #rank li.turn { background:var(--mintl); }
   #rank .dot { width:18px; height:18px; border-radius:50%; flex:none; }
-  #rank .pos { margin-left:auto; color:#666; }
+  #rank .pos { margin-left:auto; color:var(--sky); font-weight:500; }
   #rank .off { opacity:.4; }
-  #log { font-size:14px; color:#555; margin:0; padding-left:18px; overflow:auto; flex:1; }
+  #log { font-size:14px; color:#5b6b7c; margin:0; padding-left:20px; overflow:auto; flex:1; }
   .logpanel { flex:1; display:flex; flex-direction:column; min-height:0; }
-  .ctl { display:flex; gap:8px; flex-wrap:wrap; }
-  h3 { margin:0 0 8px; font-size:16px; color:#46178f; }
+  .ctl { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  h3 { margin:0 0 8px; font-size:15px; color:var(--mint); text-transform:uppercase; letter-spacing:1px; }
 
-  /* Pregunta en grande */
-  #q { position:absolute; inset:0; background:rgba(30,10,60,.93); border-radius:12px; display:none; flex-direction:column; padding:22px; gap:14px; }
-  #q.on { display:flex; }
-  #qkind { align-self:flex-start; font-size:20px; font-weight:800; padding:8px 14px; border-radius:8px; }
-  #qkind.ladder { background:#26890c; } #qkind.snake { background:#e21b3c; }
-  #qtext { animation: pop .4s ease-out; background:#fff; color:#222; font-size:34px; font-weight:900; text-align:center; padding:22px; border-radius:10px; }
-  #qmid { display:flex; align-items:center; justify-content:space-between; font-size:22px; font-weight:800; }
-  #qtimer { width:90px; height:90px; border-radius:50%; background:#864cbf; display:flex; align-items:center; justify-content:center; font-size:40px; font-weight:900; }
-  #qopts { display:grid; grid-template-columns:1fr 1fr; gap:12px; flex:1; }
-  .opt { animation: slidein .4s ease-out backwards; border-radius:8px; display:flex; align-items:center; gap:14px; padding:14px 18px; font-size:28px; font-weight:800; color:#fff; transition:opacity .3s; }
-  .opt .sh { font-size:34px; width:40px; text-align:center; }
-  .opt.o0 { background:var(--a); } .opt.o1 { background:var(--b); } .opt.o2 { background:var(--c); } .opt.o3 { background:var(--d); }
-  .opt.dim { opacity:.25; }
-  .opt.right { outline:6px solid #fff; animation: pulse .8s 3; }
-  #qres { font-size:30px; font-weight:900; text-align:center; }
-  #qexpl { background:#fff; color:#222; border-radius:10px; padding:14px 18px; font-size:22px; }
+  /* Pregunta */
+  #q { position:absolute; inset:0; background:rgba(255,247,236,.97); border-radius:22px; display:none; flex-direction:column; padding:26px; gap:16px; }
+  #q.on { display:flex; animation: rise .35s ease-out; }
+  #qkind { align-self:flex-start; font-size:20px; font-weight:600; padding:8px 18px; border-radius:999px; color:#fff; }
+  #qkind.ladder { background:var(--mint); } #qkind.snake { background:var(--red); }
+  #qtext { font-size:40px; font-weight:700; line-height:1.15; }
+  #qmid { display:flex; align-items:center; gap:16px; font-size:22px; font-weight:600; }
+  #ecg { flex:1; height:46px; border-radius:12px; background:#14273e url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='46'%3E%3Cpath d='M0 23h90l8-14 10 30 10-34 8 18h114' stroke='%2334e3a4' stroke-width='3' fill='none'/%3E%3C/svg%3E") repeat-x; animation: ecg 1.2s linear infinite; position:relative; overflow:hidden; }
+  #ecg b { position:absolute; right:0; top:0; bottom:0; background:rgba(20,39,62,.85); transition: width .25s linear; }
+  #qtimer { min-width:110px; height:46px; border-radius:12px; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; gap:6px; font-size:28px; font-weight:700; }
+  #qtimer::before { content:'❤'; animation: beat 1s infinite; display:inline-block; }
+  #qopts { display:flex; flex-direction:column; gap:12px; flex:1; justify-content:center; }
+  .opt { animation: rise .4s ease-out backwards; display:flex; align-items:center; gap:18px; padding:14px 26px 14px 14px; font-size:30px; font-weight:600; border-radius:999px; background:#fff; box-shadow:0 4px 12px rgba(20,39,62,.08); border:3px solid transparent; transition:opacity .3s; }
+  .opt .sh { width:54px; height:54px; border-radius:50%; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:28px; flex:none; }
+  .opt.o0 .sh { background:var(--mint); } .opt.o1 .sh { background:var(--sky); } .opt.o2 .sh { background:var(--sun); } .opt.o3 .sh { background:var(--red); }
+  .opt:nth-child(2) { animation-delay:.06s } .opt:nth-child(3) { animation-delay:.12s } .opt:nth-child(4) { animation-delay:.18s }
+  .opt.dim { opacity:.3; }
+  .opt.right { border-color:var(--mint); background:var(--mintl); }
+  .opt.right::after { content:'🩹'; margin-left:auto; font-size:34px; animation: pop .5s; }
+  #qwho span { color:#fff; }
+  #qres { font-size:30px; font-weight:700; }
+  #qexpl { background:#fff; border-left:8px solid var(--mint); border-radius:14px; padding:14px 18px; font-size:22px; }
 
   /* Ganador */
-  #win { position:absolute; inset:0; background:rgba(30,10,60,.93); border-radius:12px; display:none; flex-direction:column; align-items:center; justify-content:center; gap:20px; text-align:center; }
+  #win { position:absolute; inset:0; background:rgba(255,247,236,.97); border-radius:22px; display:none; flex-direction:column; align-items:center; justify-content:center; gap:18px; text-align:center; }
   #win.on { display:flex; }
-  #win .t { font-size:110px; animation: pulse 1s infinite; } #win .n { font-size:56px; font-weight:900; }
+  #win .t { font-size:120px; animation: beat 1.4s infinite; }
+  #win .n { font-size:62px; font-weight:700; color:var(--red); }
+  #confetti { position:fixed; inset:0; pointer-events:none; z-index:50; }
+  .bgshape { display:none; }
 </style>
 </head>
 <body>
@@ -101,10 +123,10 @@
 
 <!-- 1. Crear partida -->
 <section class="screen on" id="s-create">
-  <h1>🪜🐍 Escaleras y Serpientes</h1>
-  <p>First Aid and Injuries · Vocabulary Unit 2</p>
+  <div class="logo"><div class="cross"></div><h1>Escaleras y Serpientes</h1></div>
+  <p>Botiquín de inglés · First Aid and Injuries</p>
   <div class="timebox">⏱ Segundos por pregunta <input id="qtime" type="number" min="5" max="120" value="20"></div>
-  <button class="btn" id="createBtn">Crear partida</button>
+  <button class="btn" id="createBtn">＋ Crear partida</button>
   <div id="createErr"></div>
 </section>
 
@@ -121,11 +143,11 @@
   </div>
   <div class="lobbybar">
     <div class="count" id="count">0 alumnos</div>
-    <div style="flex:1;text-align:center;font-size:34px;font-weight:900">🪜 Escaleras y Serpientes 🐍<div style="font-size:18px;font-weight:600;opacity:.85">First Aid and Injuries</div></div>
+    <div style="flex:1;display:flex;justify-content:center"><div class="logo"><div class="cross" style="width:44px;height:44px;transform:scale(.8)"></div><div style="font-size:30px;font-weight:700">Escaleras y Serpientes · First Aid</div></div></div>
     <button class="btn" id="startBtn" disabled>Empezar</button>
   </div>
   <div class="chips" id="chips"></div>
-  <div class="waiting" id="waiting">Esperando a los alumnos… (haz clic en un nombre para quitarlo)</div>
+  <div class="waiting" id="waiting">Esperando a los alumnos…</div><div style="color:#8796a5;font-size:15px">Haz clic en una tirita para quitar a ese alumno</div>
 </section>
 
 <!-- 3. Juego -->
@@ -135,13 +157,13 @@
     <div id="q">
       <div id="qkind"></div>
       <div id="qtext"></div>
-      <div id="qmid"><span id="qwho"></span><div id="qtimer"></div></div>
+      <div id="qmid"><span id="qwho"></span><div id="ecg"><b></b></div><div id="qtimer"></div></div>
       <div id="qopts"></div>
       <div id="qres"></div>
       <div id="qexpl" class="hidden"></div>
     </div>
     <div id="win">
-      <div class="t">🏆</div>
+      <div class="t">🚑</div>
       <div class="n" id="winName"></div>
       <div style="font-size:24px">¡Ha llegado a la casilla 100!</div>
       <button class="btn" id="againBtn">Jugar otra vez</button>
@@ -151,14 +173,14 @@
     <div class="panel">
       <div id="turnBanner"></div>
       <div style="display:flex;align-items:center;gap:14px;margin-top:6px">
-        <div id="dice">🎲</div><div id="diceTxt" style="font-size:18px;color:#555"></div>
+        <div id="dice">?</div><div id="diceTxt" style="font-size:18px;color:#555"></div>
       </div>
     </div>
     <div class="panel"><h3>Clasificación</h3><ul id="rank"></ul></div>
     <div class="panel logpanel"><h3>Registro</h3><ol id="log"></ol></div>
     <div class="ctl">
-      <button class="btn dark small" id="skipBtn">⏭ Saltar turno</button>
-      <button class="btn dark small" id="lobbyBtn">↩ Nueva partida</button>
+      <button class="btn ghost small" id="skipBtn">⏭ Saltar turno</button>
+      <button class="btn ghost small" id="lobbyBtn">↩ Nueva partida</button>
       <span style="font-size:14px;opacity:.85;align-self:center">Código: <b id="smallCode"></b></span>
     </div>
   </div>
@@ -166,8 +188,8 @@
 
 <script>
 const $ = id => document.getElementById(id);
-const SHAPES = ['▲', '◆', '●', '■'];
-const DICE = ['⚀','⚁','⚂','⚃','⚄','⚅'];
+const SHAPES = ['A', 'B', 'C', 'D'];
+const DICE = ['1','2','3','4','5','6'];
 let S = null, host = null, es = null, skew = 0, tick = null;
 
 async function api(action, body = {}) {
@@ -217,19 +239,18 @@ function drawBoard(ladders, snakes) {
   let s = '';
   for (let n = 1; n <= 100; n++) {
     const [cx, cy] = xy(n), x = cx - 30, y = cy - 30;
-    const ROWS = ['#ffd6d6','#ffe3c2','#fff3b0','#dff5c8','#c8f0e6','#cfe6ff','#ddd6ff','#f3d1ff','#ffd1e8','#ffe0d0'];
-    const base = ROWS[Math.floor((n-1)/10)];
-    const fill = ladders[n] ? '#9be3a8' : snakes[n] ? '#ff9c9c' : base;
+    const base = (Math.floor((n-1)/10) + n) % 2 ? '#fff7ec' : '#eef8f6';
+    const fill = ladders[n] ? '#bfeadf' : snakes[n] ? '#ffd9d2' : base;
     s += `<rect x="${x}" y="${y}" width="60" height="60" fill="#fff"/>`;
     s += `<rect x="${x+1}" y="${y+1}" width="58" height="58" rx="6" fill="${fill}" stroke="${n % 2 ? '#fff' : 'none'}" stroke-opacity=".7"/>`;
-    s += `<text x="${x+5}" y="${y+15}" font-size="13" fill="#5a4a6e" font-weight="800">${n}</text>`;
-    if (ladders[n]) s += `<text x="${x+54}" y="${y+16}" font-size="12" text-anchor="end">⬆️</text>`;
-    if (snakes[n]) s += `<text x="${x+54}" y="${y+16}" font-size="12" text-anchor="end">⬇️</text>`;
+    s += `<text x="${x+6}" y="${y+16}" font-size="13" fill="#14273e" fill-opacity=".55" font-weight="600" font-family="Fredoka, sans-serif">${n}</text>`;
+    if (ladders[n]) s += `<circle cx="${x+50}" cy="${y+11}" r="7" fill="#2a9d8f"/><path d="M${x+50} ${y+7}v8M${x+47} ${y+10}l3-3 3 3" stroke="#fff" stroke-width="2" fill="none"/>`;
+    if (snakes[n]) s += `<circle cx="${x+50}" cy="${y+11}" r="7" fill="#e63946"/><path d="M${x+50} ${y+7}v8M${x+47} ${y+12}l3 3 3-3" stroke="#fff" stroke-width="2" fill="none"/>`;
   }
-  s += `<text x="${xy(100)[0]}" y="${xy(100)[1]+12}" font-size="26" text-anchor="middle">🏁</text>`;
+  s += `<text x="${xy(100)[0]}" y="${xy(100)[1]+14}" font-size="28" text-anchor="middle">🏥</text>`;
   for (const [a, b] of Object.entries(ladders)) {
     const [x1, y1] = xy(+a), [x2, y2] = xy(b), dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), nx = -dy / L * 9, ny = dx / L * 9;
-    s += `<g stroke="#8b5a2b" stroke-width="5" stroke-linecap="round" opacity=".9">
+    s += `<g stroke="#2a9d8f" stroke-width="5" stroke-linecap="round" opacity=".9">
       <line x1="${x1+nx}" y1="${y1+ny}" x2="${x2+nx}" y2="${y2+ny}"/><line x1="${x1-nx}" y1="${y1-ny}" x2="${x2-nx}" y2="${y2-ny}"/>`;
     for (let k = 1; k < L / 22; k++) { const t = k * 22 / L, px = x1 + dx * t, py = y1 + dy * t;
       s += `<line x1="${px+nx}" y1="${py+ny}" x2="${px-nx}" y2="${py-ny}" stroke-width="3.5"/>`; }
@@ -238,9 +259,9 @@ function drawBoard(ladders, snakes) {
   for (const [a, b] of Object.entries(snakes)) {
     const [x1, y1] = xy(+a), [x2, y2] = xy(b), mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
     const cx = mx + (y2 - y1) * .25, cy = my - (x2 - x1) * .25;
-    s += `<path d="M${x1},${y1} Q${cx},${cy} ${x2},${y2}" fill="none" stroke="#2f8f3a" stroke-width="11" stroke-linecap="round" opacity=".85"/>
-      <path d="M${x1},${y1} Q${cx},${cy} ${x2},${y2}" fill="none" stroke="#a4e07a" stroke-width="3" stroke-dasharray="6 8" stroke-linecap="round"/>
-      <circle cx="${x1}" cy="${y1}" r="9" fill="#2f8f3a"/><circle cx="${x1-3}" cy="${y1-3}" r="2" fill="#fff"/><circle cx="${x1+3}" cy="${y1-3}" r="2" fill="#fff"/>`;
+    s += `<path d="M${x1},${y1} Q${cx},${cy} ${x2},${y2}" fill="none" stroke="#f4a261" stroke-width="11" stroke-linecap="round" opacity=".85"/>
+      <path d="M${x1},${y1} Q${cx},${cy} ${x2},${y2}" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="3" stroke-dasharray="6 8" stroke-linecap="round"/>
+      <circle cx="${x1}" cy="${y1}" r="10" fill="#e76f51"/><circle cx="${x1-3}" cy="${y1-3}" r="2" fill="#fff"/><circle cx="${x1+3}" cy="${y1-3}" r="2" fill="#fff"/>`;
   }
   s += `<g id="tokens"></g>`;
   $('board').innerHTML = s;
@@ -283,7 +304,7 @@ let confettiOn = false;
 function confetti() {
   if (confettiOn) return; confettiOn = true;
   const c = $('confetti'), x = c.getContext('2d'); c.width = innerWidth; c.height = innerHeight;
-  const cols = ['#e21b3c','#1368ce','#d89e00','#26890c','#fff','#ff5fa2'];
+  const cols = ['#e63946','#2a9d8f','#f4a261','#457b9d','#ffffff','#14273e'];
   const ps = Array.from({ length: 220 }, () => ({ x: Math.random() * c.width, y: -Math.random() * c.height, s: 6 + Math.random() * 8,
     vy: 2 + Math.random() * 4, vx: -2 + Math.random() * 4, r: Math.random() * 6, c: cols[Math.floor(Math.random() * cols.length)] }));
   const t0 = Date.now();
@@ -311,7 +332,7 @@ function render() {
   }
   const ev = S.lastEvent;
   if (ev && ev.type === 'roll') { animateDice(ev); $('diceTxt').textContent = `${nameOf(ev.playerId)} ha sacado un ${ev.dice}`; }
-  else if (!ev) { $('dice').textContent = '🎲'; $('diceTxt').textContent = 'Esperando la primera tirada…'; }
+  else if (!ev) { $('dice').textContent = '?'; $('diceTxt').textContent = 'Esperando la primera tirada…'; }
 
   const ranked = [...S.players].sort((a, b) => b.pos - a.pos);
   $('rank').innerHTML = ranked.map(p => `<li class="${cur && cur.id === p.id ? 'turn' : ''}"><span class="dot" style="background:${p.color}"></span>
@@ -333,7 +354,7 @@ function renderLobby() {
   if ($('qr').dataset.link !== link) { $('qr').dataset.link = link; $('qr').src = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(link); }
   const n = S.players.length;
   $('count').textContent = `${n} alumno${n === 1 ? '' : 's'}`;
-  $('chips').innerHTML = S.players.map(p => `<div class="chip" data-id="${p.id}" style="background:${p.color}">${esc(p.name)}</div>`).join('');
+  $('chips').innerHTML = S.players.map(p => `<div class="chip" data-id="${p.id}" style="--rot:${((p.id.charCodeAt(0) % 7) - 3) * 2}deg"><i style="background:${p.color}"></i><span data-id="${p.id}">${esc(p.name)}</span></div>`).join('');
   $('waiting').classList.toggle('hidden', n > 0);
   $('startBtn').disabled = n === 0;
 }
@@ -351,8 +372,8 @@ function renderQuestion() {
 
 function kindLabel(q) {
   return q.kind === 'ladder'
-    ? `🪜 Escalera ${q.from} → ${q.to} · si acierta, sube`
-    : `🐍 Serpiente ${q.from} → ${q.to} · si falla, baja`;
+    ? `🪜 Escalera ${q.from} → ${q.to} · acierta y sube`
+    : `🐍 Serpiente ${q.from} → ${q.to} · falla y baja`;
 }
 function optsHTML(options, cls = () => '') {
   return options.map((o, i) => `<div class="opt o${i} ${cls(i)}"><span class="sh">${SHAPES[i]}</span>${esc(o)}</div>`).join('');
@@ -367,11 +388,13 @@ function showQuestion(q) {
   $('q').classList.add('on');
   $('qkind').className = q.kind; $('qkind').textContent = kindLabel(q);
   $('qtext').textContent = q.text;
-  $('qwho').innerHTML = `Responde: <span style="background:${colorOf(q.playerId)};padding:4px 10px;border-radius:6px">${esc(nameOf(q.playerId))}</span>`;
+  $('qwho').innerHTML = `Responde <span style="background:${colorOf(q.playerId)};padding:6px 14px;border-radius:999px">${esc(nameOf(q.playerId))}</span>`;
   $('qopts').innerHTML = optsHTML(q.options);
-  $('qres').textContent = ''; $('qexpl').classList.add('hidden'); $('qtimer').style.visibility = 'visible';
+  $('qres').textContent = ''; $('qexpl').classList.add('hidden'); $('qtimer').style.visibility = 'visible'; $('ecg').style.visibility = 'visible';
   clearInterval(tick);
-  const f = () => $('qtimer').textContent = Math.max(0, Math.ceil((q.deadline - Date.now() - skew) / 1000));
+  const f = () => { const left = Math.max(0, q.deadline - Date.now() - skew);
+    $('qtimer').textContent = Math.ceil(left / 1000);
+    $('ecg').firstElementChild.style.width = (100 - left / (S.questionTime * 1000) * 100) + '%'; };
   f(); tick = setInterval(f, 250);
 }
 
@@ -380,11 +403,11 @@ function showFeedback(ev) {
   $('q').classList.add('on');
   $('qkind').className = ev.kind; $('qkind').textContent = kindLabel(ev);
   $('qtext').textContent = ev.text;
-  $('qwho').innerHTML = `<span style="background:${colorOf(ev.playerId)};padding:4px 10px;border-radius:6px">${esc(nameOf(ev.playerId))}</span>`;
-  $('qtimer').style.visibility = 'hidden';
+  $('qwho').innerHTML = `<span style="background:${colorOf(ev.playerId)};padding:6px 14px;border-radius:999px">${esc(nameOf(ev.playerId))}</span>`;
+  $('qtimer').style.visibility = 'hidden'; $('ecg').style.visibility = 'hidden';
   $('qopts').innerHTML = optsHTML(ev.options, i => i === ev.correctIndex ? 'right' : 'dim');
   const who = nameOf(ev.playerId);
-  const head = ev.timeout ? '⏰ ¡Tiempo!' : ev.correct ? '✅ ¡Correcto!' : '❌ Incorrecto';
+  const head = ev.timeout ? '⏰ ¡Sin pulso… se acabó el tiempo!' : ev.correct ? '🩹 ¡Bien curado!' : '🤕 ¡Ay! Incorrecto';
   const res = ev.kind === 'ladder'
     ? (ev.correct ? `${who} sube a la casilla ${ev.finalPos} 🪜` : `${who} se queda en la casilla ${ev.finalPos}`)
     : (ev.correct ? `${who} esquiva la serpiente 🐍` : `${who} baja a la casilla ${ev.finalPos} 🐍`);

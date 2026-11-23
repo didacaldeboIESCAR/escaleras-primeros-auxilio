@@ -15,8 +15,8 @@ const PAGES = { '/': 'alumno.html', '/profe': 'profe.html' };
 
 const LADDERS = { 4: 14, 9: 31, 21: 42, 28: 84, 51: 67, 72: 91, 80: 99 };
 const SNAKES = { 17: 7, 54: 34, 62: 19, 64: 60, 87: 24, 93: 73, 95: 75, 98: 79 };
-const COLORS = ['#e21b3c', '#1368ce', '#26890c', '#d89e00', '#8e44ad', '#e67e22', '#16a3a3', '#d6336c',
-  '#5d4037', '#2c3e50', '#7cb342', '#ff5fa2', '#00acc1', '#6d4c41', '#3949ab', '#c0ca33'];
+const COLORS = ['#e63946', '#2a9d8f', '#457b9d', '#f4a261', '#9b5de5', '#e76f51', '#118ab2', '#ef476f',
+  '#06a77d', '#8d6e63', '#3d5a80', '#ff8fab', '#43aa8b', '#b5838d', '#6a4c93', '#577590'];
 const MAX_PLAYERS = COLORS.length;
 
 const rooms = new Map();
