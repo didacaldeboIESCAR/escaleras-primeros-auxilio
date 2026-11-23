@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#46178f">
+<title>Escaleras y Serpientes · First Aid</title>
+<style>
+  :root { --me:#46178f; --a:#e21b3c; --b:#1368ce; --c:#d89e00; --d:#26890c; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html, body { margin:0; height:100%; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background:#46178f; color:#fff;
+    display:flex; flex-direction:column; transition: background .5s; }
+  body.joined { background: linear-gradient(160deg, var(--me), #2a0d5e 85%); }
+  button, input { font:inherit; }
+  .hidden { display:none !important; }
+  @keyframes pop { 0% { transform:scale(0); } 70% { transform:scale(1.12); } 100% { transform:scale(1); } }
+  @keyframes pulse { 50% { transform:scale(1.07); } }
+  @keyframes spin { 0% { transform:rotate(0) scale(1); } 50% { transform:rotate(360deg) scale(1.3); } 100% { transform:rotate(720deg) scale(1); } }
+  @keyframes bob { 50% { transform:translateY(-10px); } }
+  @keyframes slidein { from { transform:translateY(40px); opacity:0; } to { transform:none; opacity:1; } }
+
+  /* Entrar */
+  #join { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding:24px; text-align:center; }
+  #join h1 { font-size:30px; margin:0 0 8px; }
+  .box { background:#fff; border-radius:10px; padding:16px; width:100%; max-width:340px; display:flex; flex-direction:column; gap:10px; box-shadow:0 6px 0 rgba(0,0,0,.25); }
+  .box input { padding:14px; font-size:20px; font-weight:800; text-align:center; border:2px solid #ccc; border-radius:6px; color:#333; }
+  .box input::placeholder { color:#aaa; font-weight:700; }
+  .box button { padding:14px; font-size:20px; font-weight:900; border:0; border-radius:6px; background:#333; color:#fff; }
+  #err { min-height:22px; font-weight:700; color:#ffd6d6; }
+
+  /* Perfil */
+  #game { flex:1; display:flex; flex-direction:column; }
+  .top { display:flex; align-items:center; gap:12px; padding:12px 16px; background:rgba(0,0,0,.25); }
+  .avatar { width:46px; height:46px; border-radius:50%; background:var(--me); border:3px solid #fff; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:900; box-shadow:0 3px 0 rgba(0,0,0,.3); }
+  .top .nm { font-size:20px; font-weight:900; }
+  .top .cell { margin-left:auto; background:#fff; color:#333; padding:6px 12px; border-radius:20px; font-weight:900; font-size:16px; }
+  .stage { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; text-align:center; gap:16px; }
+  .big { font-size:28px; font-weight:900; }
+  .sub { font-size:17px; opacity:.9; }
+  .emoji { font-size:90px; animation: bob 2s ease-in-out infinite; }
+
+  #rollBtn { width:220px; height:220px; border-radius:36px; border:0; background:#fff; color:var(--me); font-size:110px; line-height:1;
+    box-shadow:0 10px 0 rgba(0,0,0,.3); animation: pulse 1.1s infinite; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  #rollBtn small { font-size:20px; font-weight:900; margin-top:4px; }
+  #rollBtn:active { transform:translateY(6px); box-shadow:0 4px 0 rgba(0,0,0,.3); }
+  #rollBtn:disabled { animation:none; opacity:.6; }
+  .diceShow { font-size:130px; line-height:1; }
+  .diceShow.spin { animation: spin .9s ease-out; }
+
+  /* Pregunta */
+  #qbox { flex:1; display:flex; flex-direction:column; padding:12px; gap:10px; }
+  #qkind { font-weight:900; font-size:15px; padding:8px 12px; border-radius:8px; text-align:center; }
+  #qkind.ladder { background:#26890c; } #qkind.snake { background:#e21b3c; }
+  #qtext { background:#fff; color:#222; border-radius:10px; padding:14px; font-size:21px; font-weight:900; text-align:center; animation: pop .35s ease-out; }
+  #qtimer { height:10px; background:rgba(255,255,255,.25); border-radius:5px; overflow:hidden; }
+  #qtimer div { height:100%; background:#fff; width:100%; transition: width .25s linear; }
+  #qinfo { text-align:center; font-weight:800; font-size:16px; }
+  #qopts { flex:1; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  #qopts button { border:0; border-radius:10px; color:#fff; font-size:19px; font-weight:900; padding:10px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+    box-shadow:0 6px 0 rgba(0,0,0,.3); animation: slidein .35s ease-out backwards; min-height:110px; }
+  #qopts button .sh { font-size:34px; }
+  #qopts button:nth-child(1) { background:var(--a); } #qopts button:nth-child(2) { background:var(--b); animation-delay:.05s; }
+  #qopts button:nth-child(3) { background:var(--c); animation-delay:.1s; } #qopts button:nth-child(4) { background:var(--d); animation-delay:.15s; }
+  #qopts button:active:not(:disabled) { transform:translateY(4px); box-shadow:0 2px 0 rgba(0,0,0,.3); }
+  #qopts button:disabled { cursor:default; }
+  #qopts.watch button { opacity:.75; }
+  #qopts button.dim { opacity:.2; } #qopts button.right { outline:5px solid #fff; animation: pulse .7s 3; }
+  #qopts button.chosen { outline:5px solid #222; }
+
+  /* Resultado */
+  #fb { position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding:24px; text-align:center; z-index:5; }
+  #fb.ok { background:#26890c; } #fb.bad { background:#e21b3c; } #fb.neutral { background:#46178f; }
+  #fb .ic { font-size:100px; animation: pop .5s ease-out; }
+  #fb .t1 { font-size:34px; font-weight:900; }
+  #fb .t2 { font-size:20px; font-weight:800; }
+  #fb .ex { background:rgba(0,0,0,.25); padding:14px; border-radius:10px; font-size:17px; max-width:420px; }
+  #confetti { position:fixed; inset:0; pointer-events:none; z-index:10; }
+</style>
+</head>
+<body>
+<canvas id="confetti"></canvas>
+
+<section id="join">
+  <h1>🪜🐍 Escaleras y Serpientes</h1>
+  <div class="box">
+    <input id="code" placeholder="Código de la partida" maxlength="8" autocapitalize="characters" autocomplete="off">
+    <input id="name" placeholder="Tu nombre" maxlength="16" autocomplete="off">
+    <button id="joinBtn">¡Entrar!</button>
+  </div>
+  <div id="err"></div>
+</section>
+
+<section id="game" class="hidden">
+  <div class="top">
+    <div class="avatar" id="avatar"></div>
+    <div class="nm" id="myName"></div>
+    <div class="cell" id="myCell"></div>
+  </div>
+
+  <div class="stage" id="stage"></div>
+
+  <div id="qbox" class="hidden">
+    <div id="qkind"></div>
+    <div id="qtext"></div>
+    <div id="qtimer"><div></div></div>
+    <div id="qinfo"></div>
+    <div id="qopts"></div>
+  </div>
+</section>
+
+<div id="fb" class="hidden"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const SHAPES = ['▲', '◆', '●', '■'];
+const DICE = ['⚀','⚁','⚂','⚃','⚄','⚅'];
+let S = null, me = null, es = null, skew = 0, tick = null;
+
+const urlCode = (new URLSearchParams(location.search).get('sala') || '').toUpperCase();
+$('code').value = urlCode;
+$('name').value = localStorage.getItem('ss_name') || '';
+if (urlCode) $('name').focus(); else $('code').focus();
+
+async function api(action, body = {}) {
+  const r = await fetch('/api/' + action, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ room: me ? me.room : $('code').value, token: me && me.token, ...body }) });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || 'Error');
+  return j;
+}
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]));
+const nameOf = id => (S.players.find(p => p.id === id) || {}).name || '?';
+
+async function join(saved) {
+  const code = $('code').value.trim().toUpperCase();
+  if (!code) return $('err').textContent = 'Escribe el código que ves en la pantalla del profe';
+  try {
+    const j = await api('join', { room: code, name: $('name').value, token: saved && saved.token });
+    me = { room: j.room, token: j.token, id: j.id };
+    localStorage.setItem('ss_me_' + j.room, JSON.stringify(me));
+    localStorage.setItem('ss_name', $('name').value);
+    history.replaceState(null, '', '/?sala=' + j.room);
+    connect();
+  } catch (e) { $('err').textContent = e.message; }
+}
+$('joinBtn').onclick = () => join();
+$('name').onkeydown = $('code').onkeydown = e => e.key === 'Enter' && join();
+// Si recarga la página, vuelve a entrar con el mismo jugador
+if (urlCode) { const saved = JSON.parse(localStorage.getItem('ss_me_' + urlCode) || 'null'); if (saved) join(saved); }
+
+function connect() {
+  if (es) es.close();
+  es = new EventSource(`/events?room=${me.room}&token=${me.token}`);
+  es.onmessage = e => { S = JSON.parse(e.data); skew = S.serverNow - Date.now(); render(); };
+  $('join').classList.add('hidden'); $('game').classList.remove('hidden');
+}
+
+// ---------- Render ----------
+let stageKey = '';
+function setStage(key, html) { if (stageKey !== key) { stageKey = key; $('stage').innerHTML = html; } }
+
+function render() {
+  const mine = S.players.find(p => p.id === me.id);
+  if (!mine) { // el profe le ha quitado
+    es.close(); localStorage.removeItem('ss_me_' + me.room); me = null;
+    $('game').classList.add('hidden'); $('join').classList.remove('hidden'); document.body.classList.remove('joined');
+    $('err').textContent = 'Has salido de la partida. Puedes volver a entrar.'; return;
+  }
+  document.body.classList.add('joined');
+  document.documentElement.style.setProperty('--me', mine.color);
+  $('avatar').textContent = mine.name[0].toUpperCase();
+  $('myName').textContent = mine.name;
+  $('myCell').textContent = S.status === 'lobby' ? '¡Dentro!' : `Casilla ${mine.pos}`;
+
+  const now = Date.now() + skew, cur = S.players[S.turn], myTurn = cur && cur.id === me.id, ev = S.lastEvent;
+
+  // Pantalla de resultado de la pregunta (5 s)
+  if (!S.question && ev && ev.type === 'answer' && now - ev.t < 5000) {
+    showFeedback(ev); setTimeout(render, 5000 - (now - ev.t) + 50);
+  } else $('fb').classList.add('hidden');
+
+  // Pregunta (después de ver el dado)
+  if (S.question) {
+    const grace = S.question.deadline - S.questionTime * 1000 - now;
+    if (grace > 0) { showRoll(ev, true); setTimeout(render, grace + 30); return; }
+    return showQuestion(S.question);
+  }
+  $('qbox').classList.add('hidden'); $('stage').classList.remove('hidden'); clearInterval(tick);
+
+  if (S.status === 'lobby') return setStage('lobby', `<div class="emoji">🎮</div><div class="big">¡Ya estás dentro!</div>
+    <div class="sub">¿Ves tu nombre en la pantalla del profe?<br>Espera a que empiece la partida.</div>`);
+
+  if (S.status === 'finished') {
+    const won = S.winner === me.id;
+    const rank = [...S.players].sort((a, b) => b.pos - a.pos).findIndex(p => p.id === me.id) + 1;
+    if (won) confetti();
+    return setStage('fin' + S.winner, won
+      ? `<div class="emoji">🏆</div><div class="big">¡Has ganado!</div><div class="sub">Has llegado a la casilla 100</div>`
+      : `<div class="emoji">🎉</div><div class="big">Gana ${esc(nameOf(S.winner))}</div><div class="sub">Has quedado en la posición ${rank}</div>`);
+  }
+
+  // Dado recién tirado
+  if (ev && ev.type === 'roll' && now - ev.t < 1500) { showRoll(ev); return setTimeout(render, 1500 - (now - ev.t) + 50); }
+
+  if (myTurn) {
+    const busy = now < S.busyUntil;
+    setStage('myturn' + S.turn + (ev ? ev.t : 0), `<div class="big">¡Te toca!</div>
+      <button id="rollBtn"><span>🎲</span><small>TIRAR</small></button><div class="sub">Pulsa el dado</div>`);
+    $('rollBtn').disabled = busy;
+    if (busy) setTimeout(render, S.busyUntil - now + 50);
+    $('rollBtn').onclick = () => { $('rollBtn').disabled = true; api('roll').catch(e => { $('rollBtn').disabled = false; alert(e.message); }); };
+    if (navigator.vibrate && stageKey !== showRoll.vibrated) { showRoll.vibrated = stageKey; navigator.vibrate(200); }
+    return;
+  }
+  setStage('wait' + (cur ? cur.id : '') + (ev ? ev.t : 0), `<div class="emoji">👀</div>
+    <div class="big">Turno de ${esc(cur ? cur.name : '')}</div><div class="sub">Mira el tablero en la pantalla del profe</div>
+    ${ev && ev.type === 'roll' ? `<div class="sub">Última tirada: ${esc(nameOf(ev.playerId))} sacó un ${ev.dice}</div>` : ''}`);
+}
+
+function showRoll(ev, keep) {
+  if (!ev || ev.type !== 'roll') return;
+  $('qbox').classList.add('hidden'); $('stage').classList.remove('hidden');
+  const mine = ev.playerId === me.id;
+  if (stageKey === 'roll' + ev.t) return;
+  setStage('roll' + ev.t, `<div class="diceShow spin" id="dShow">🎲</div>
+    <div class="big">${mine ? 'Has sacado' : esc(nameOf(ev.playerId)) + ' ha sacado'} un ${ev.dice}</div>
+    <div class="sub">${ev.to === ev.from ? 'Necesitas el número exacto para llegar a 100' : 'Casilla ' + ev.from + ' → ' + ev.to}</div>`);
+  let k = 0; const iv = setInterval(() => { const d = $('dShow'); if (!d) return clearInterval(iv);
+    d.textContent = DICE[Math.floor(Math.random() * 6)]; if (++k > 9) { clearInterval(iv); d.textContent = DICE[ev.dice - 1]; } }, 80);
+}
+
+function showQuestion(q) {
+  const mine = q.playerId === me.id;
+  $('stage').classList.add('hidden'); $('qbox').classList.remove('hidden');
+  if ($('qbox').dataset.key === String(q.deadline)) return;
+  $('qbox').dataset.key = q.deadline; stageKey = '';
+  $('qkind').className = q.kind;
+  $('qkind').textContent = q.kind === 'ladder'
+    ? `🪜 Escalera ${q.from} → ${q.to}: ${mine ? 'si aciertas, subes' : 'si acierta, sube'}`
+    : `🐍 Serpiente ${q.from} → ${q.to}: ${mine ? 'si fallas, bajas' : 'si falla, baja'}`;
+  $('qtext').textContent = q.text;
+  $('qopts').className = mine ? '' : 'watch';
+  $('qopts').innerHTML = q.options.map((o, i) => `<button data-i="${i}" ${mine ? '' : 'disabled'}><span class="sh">${SHAPES[i]}</span>${esc(o)}</button>`).join('');
+  $('qopts').querySelectorAll('button').forEach(b => b.onclick = () => {
+    $('qopts').querySelectorAll('button').forEach(x => x.disabled = true);
+    b.classList.add('chosen');
+    $('qinfo').textContent = 'Respuesta enviada…';
+    api('answer', { choice: +b.dataset.i }).catch(e => alert(e.message));
+  });
+  if (mine && navigator.vibrate) navigator.vibrate([100, 60, 100]);
+  clearInterval(tick);
+  const f = () => { const left = Math.max(0, q.deadline - Date.now() - skew);
+    $('qtimer').firstElementChild.style.width = (left / (S.questionTime * 1000) * 100) + '%';
+    if (!$('qinfo').textContent.startsWith('Respuesta'))
+      $('qinfo').textContent = (mine ? '¡Te toca responder! ' : `Responde ${nameOf(q.playerId)} · `) + `⏱ ${Math.ceil(left / 1000)} s`; };
+  $('qinfo').textContent = ''; f(); tick = setInterval(f, 250);
+}
+
+function showFeedback(ev) {
+  if ($('fb').dataset.key === String(ev.t)) return $('fb').classList.remove('hidden');
+  $('fb').dataset.key = ev.t; $('qbox').dataset.key = '';
+  const mine = ev.playerId === me.id, who = mine ? 'Tú' : nameOf(ev.playerId);
+  const ok = ev.correct;
+  const res = ev.kind === 'ladder'
+    ? (ok ? `${who} ${mine ? 'subes' : 'sube'} a la casilla ${ev.finalPos} 🪜` : `${who} ${mine ? 'te quedas' : 'se queda'} en la casilla ${ev.finalPos}`)
+    : (ok ? `${who} ${mine ? 'esquivas' : 'esquiva'} la serpiente 🐍` : `${who} ${mine ? 'bajas' : 'baja'} a la casilla ${ev.finalPos} 🐍`);
+  $('fb').className = mine ? (ok ? 'ok' : 'bad') : 'neutral';
+  $('fb').innerHTML = `<div class="ic">${ev.timeout ? '⏰' : ok ? '✅' : '❌'}</div>
+    <div class="t1">${ev.timeout ? '¡Se acabó el tiempo!' : ok ? '¡Correcto!' : 'Incorrecto'}</div>
+    <div class="t2">${esc(res)}</div>
+    <div class="t2">Respuesta correcta: ${SHAPES[ev.correctIndex]} ${esc(ev.options[ev.correctIndex])}</div>
+    <div class="ex">📘 ${esc(ev.explanation)}</div>`;
+  if (mine && ok) confetti(1500);
+}
+
+let confettiOn = false;
+function confetti(ms = 6000) {
+  if (confettiOn) return; confettiOn = true;
+  const c = $('confetti'), x = c.getContext('2d'); c.width = innerWidth; c.height = innerHeight;
+  const cols = ['#e21b3c','#1368ce','#d89e00','#26890c','#fff','#ff5fa2'];
+  const ps = Array.from({ length: 120 }, () => ({ x: Math.random() * c.width, y: -Math.random() * c.height * .5, s: 6 + Math.random() * 8,
+    vy: 3 + Math.random() * 4, vx: -2 + Math.random() * 4, r: Math.random() * 6, c: cols[Math.floor(Math.random() * cols.length)] }));
+  const t0 = Date.now();
+  (function f() {
+    x.clearRect(0, 0, c.width, c.height);
+    ps.forEach(p => { p.y += p.vy; p.x += p.vx; p.r += .12;
+      x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.fillStyle = p.c; x.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); x.restore(); });
+    if (Date.now() - t0 < ms) requestAnimationFrame(f); else { x.clearRect(0, 0, c.width, c.height); confettiOn = false; }
+  })();
+}
+</script>
+</body>
+</html>
