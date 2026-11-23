@@ -153,7 +153,7 @@ async function join(saved) {
   } catch (e) { $('err').textContent = e.message; }
 }
 $('joinBtn').onclick = () => join();
-$('name').onkeydown = $('code').onkeydown = e => e.key === 'Enter' && join();
+$('name').onkeydown = $('code').onkeydown = e => { if (e.key === 'Enter') join(); };
 // Si recarga la página, vuelve a entrar con el mismo jugador
 if (urlCode) { const saved = JSON.parse(localStorage.getItem('ss_me_' + urlCode) || 'null'); if (saved) join(saved); }
 
